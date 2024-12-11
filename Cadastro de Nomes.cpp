@@ -5,11 +5,14 @@
 
 int registro()
 {
-	
 	setlocale(LC_ALL, "Portuguese");
 	
     char arquivo[40];
     char cpf[40], nome[40], sobrenome [40], cargo[40];
+    
+    int opcao=0;//definir variavel
+    
+    system("cls");//limpa tela
     
     printf("\n\t== Digite as informações do cadastro ==\n\n");
     printf("CFP: ");
@@ -32,18 +35,46 @@ int registro()
         fprintf(file, "NOME: %s %s\n", nome, sobrenome);
         fprintf(file, "CARGO: %s\n", cargo);
         fclose(file);
-        printf("\nCadastro salvo com sucesso!\n");
+        printf("\nCadastro salvo com sucesso!\n\n");
     } else {
         printf("\nErro ao criar o arquivo!\n");
     }
-
-    system("pause");
+    
+    system("cls");
+    
+    printf("\n\t== Gostaria de Incluir outro usuario? ==\n");
+    printf("\n\t1 - Sim");
+    printf("\n\t2 - Não\n\n");
+    printf("Opção: ");
+    
+    scanf("%d", &opcao);
+    
+     switch(opcao)//seleção de opção
+	  {
+	  	case 1:
+	  	  registro();
+	  	break;
+	  	
+	  	case 2:
+	  	  
+	  	break;
+	  		
+	  	default:
+		  printf("\n\tEssa opção não Existe!\n\n");
+		  
+		  system("pause");
+		  break;
+	  }
 }
 
 int pesquisa()
 {
     setlocale(LC_ALL, "Portuguese"); // definir linguagem
     char cpf[40], conteudo[200];
+    
+    int opcao=0;//definir variavel
+    
+    system("cls");//limpa tela
 
     printf("Digite o CPF para consulta: ");
     scanf("%s", cpf);
@@ -62,14 +93,44 @@ int pesquisa()
         }
         fclose(file);
     }
-
+    
     system("pause");
+
+    system("cls");
+    
+    printf("\n\t== Gostaria de Pesquisar outro usuario? ==\n");
+    printf("\n\t1 - Sim");
+    printf("\n\t2 - Não\n\n");
+    printf("Opção: ");
+    
+    scanf("%d", &opcao);
+    
+     switch(opcao)//seleção de opção
+	  {
+	  	case 1:
+	  	  pesquisa();
+	  	break;
+	  	
+	  	case 2:
+	  	  
+	  	break;
+	  		
+	  	default:
+		  printf("\n\tEssa opção não Existe!\n\n");
+		  
+		  system("pause");
+		  break;
+	  }
 }
 
 int deletar()
 {
 	setlocale(LC_ALL, "Portuguese"); // definir linguagem
     char cpf[40];
+    
+    int opcao=0;//definir variavel
+    
+    system("cls");//limpa tela
     
     printf("\n\t== Digite o CPF para ser deletado ==\n\n");
     printf("CPF: ");
@@ -85,6 +146,30 @@ int deletar()
     }
 
     system("pause");
+    
+    system("cls");
+    
+    printf("\n\t== Gostaria de Deletar outro usuario? ==\n");
+    printf("\n\t1 - Sim");
+    printf("\n\t2 - Não\n\n");
+    printf("Opção: ");
+    
+    scanf("%d", &opcao);
+    
+     switch(opcao)//seleção de opção
+	  {
+	  	case 1:
+	  	  deletar();
+	  	break;
+	  	
+	  	case 2:
+	  	break;
+	  		
+	  	default:
+		  printf("\n\tEssa opção não Existe!\n\n");
+		  system("pause");
+		  break;
+	  }
 }
 
 int main()
@@ -124,12 +209,12 @@ int main()
           deletar();
 		break;
 		
-		  case 4:
+		case 4:
 		  printf("\n\tEsse e um programa criado por Kauã F.\n");
 		  printf("\n\tMuito obrigado por usar!\n\n");
 
 		  system("pause");
-		  return 0;
+		return 0;
 		break;
 		
 		  default:
