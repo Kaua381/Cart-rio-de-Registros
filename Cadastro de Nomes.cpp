@@ -3,16 +3,47 @@
 #include <locale.h> //bbt de alocação de texto por região
 #include <string.h> //bbt responsavel pelo cuidado da string
 
-int cle(){
-	#ifdef _WIN32
-        system("cls");  // Limpa tela para Windows
+
+// Função para limpar a tela
+int limpartela() {
+    int result;
+    #ifdef _WIN32
+        result = system("cls");
     #else
-        system("clear"); // Limpa tela para sistemas Unix-like (Linux, macOS)
+        result = system("clear");
     #endif
 }
-int registro(){
-	
+
+int configurarambiente() {
 	setlocale(LC_ALL, "Portuguese");
+	limpartela();
+}
+
+// Função de pergunta generica
+int perguntar(const char* mensagem) {
+	limpartela();
+	int opcao;
+	while (1) {
+		printf("\n%s\n", mensagem);
+		printf("\n1 - Sim");
+		printf("\n2 - Não");
+		printf("\n\nopção: ");
+		if (scanf("%d", &opcao) != 1) {
+			printf("\nOpção invalida, tente denovo.");
+			while (getchar() != '\n');
+		} 
+		else if (opcao == 1 || opcao == 2) {
+			return opcao;
+		}
+		else {
+			printf("\nOpção Inválida, Por favor, escolha 1 ou 2.\n");
+		}
+	}
+}
+
+int registro() {
+	
+	configurarambiente();
 	
     char arquivo[40];
     char cpf[40], nome[40], sobrenome [40], cargo[40];
@@ -41,10 +72,16 @@ int registro(){
         printf("\nErro ao criar o arquivo!\n");
     }
     system("pause");
+    
+    if (perguntar("Gostaria de cadastrar outro usuário?") == 1) {
+    	registro();
+	}
 }
 int pesquisa(){
-    setlocale(LC_ALL, "Portuguese"); // definir linguagem
+    configurarambiente(); // definir linguagem
+    
     char cpf[40], conteudo[200];
+    
     printf("Digite o CPF para consulta: ");
     scanf("%s", cpf);
     FILE *file = fopen(cpf, "r");
@@ -62,9 +99,13 @@ int pesquisa(){
         fclose(file);
     }
     system("pause");
+    
+    if (perguntar("Gostaria de pesquisar outro usuário?") == 1) {
+    	registro();
+	}
 }
 int deletar(){
-	setlocale(LC_ALL, "Portuguese"); // definir linguagem
+	configurarambiente(); // definir linguagem
     char cpf[40];
     
     printf("\n\t== Digite o CPF para ser deletado ==\n\n");
@@ -80,6 +121,10 @@ int deletar(){
         printf("\nCPF não encontrado ou erro ao deletar.\n");
     }
     system("pause");
+    
+    if (perguntar("Gostaria de deletar outro usuário?") == 1) {
+    	registro();
+	}
 }
 int main(){
 	int opcao=0;//definir variavel
@@ -87,9 +132,9 @@ int main(){
 	
 	for(x=1;x=1;)//repetição
 	{
-	  cle(); //chama função de limpar tela
+	  limpartela();//chama função de limpar tela
 			
-	  setlocale(LC_ALL, "Portuguese");//definir linguagem
+	  configurarambiente();//definir linguagem
 	
 	  printf("\n\n\t == Cartório de Registro == \n\n");//inicio do menu
 	  printf("\tEscolha uma opção no menu: \n");
@@ -101,7 +146,7 @@ int main(){
 	
 	  scanf("%d", &opcao);//armazenar opção do usuário
 	
-	  cle();//chama função de limpar tela
+	  limpartela();//chama função de limpar tela
 	  
 	  switch(opcao)//seleção de opção
 	  {
