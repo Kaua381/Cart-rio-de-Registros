@@ -16,9 +16,74 @@ void configurarambiente() {
     setlocale(LC_ALL, "Portuguese");
     limpartela();
 }
+//Função para criar Login
+int criarlogin() {
+	configurarambiente();
+	
+	char login[40], senha[40];
+	
+	    printf ("\n\n\t == Cadastro de Login == \n\n");
+		printf ("\tNenhum login encontrado.\n");
+		printf ("\tCrie um novo login e senha.\n\n");
+		
+		printf("Digite um Login: ");
+		scanf("%s", login);
+		printf("Digite uma senha: ");
+		scanf("%s", senha);
+		
+		FILE *file = fopen ("login_senha.txt", "w");
+		if (file != NULL) {
+	       fprintf(file, "%s\n", login);
+           fprintf(file, "%s\n", senha);
+		   fclose(file);
+		   
+		   limpartela();
+		   printf ("\n\n\t == Login criado com sucesso! ==\n\n\n");
+		   return 1;
+	    } 
+		else {
+	       printf ("\n\n\t == Erro ao criar login! ==\n\n\n");
+		}
+		   system("pause");
+		   return 0;
+	}
 //Função de login de usuario
-void login() {
-	return;
+int login() {
+	
+	char login[40], senha[40];
+	char filelogin[40], filesenha[40];
+	
+	while (1) {
+	configurarambiente();
+	
+	FILE*file = fopen("login_senha.txt", "r");
+	if (file == NULL) 
+	{ //Se o arquivo Login_Senha.txt não existir, manda para a criação de Login.
+	criarlogin();
+	} else {
+		printf("\n\n\t == Acesso de login == \n\n");
+		printf("\t\nPor favor digite seu login\n\n");
+		
+		printf("Digite um login: ");
+		scanf("%s", login);
+		printf("Digite uma senha: ");
+		scanf("%s", senha);
+		
+		fscanf(file, "%s", filelogin);
+		fscanf(file, "%s", filesenha);
+		fclose(file);
+		
+		if (strcmp(login, filelogin) == 0 && strcmp (senha, filesenha) == 0) {
+			printf("\t\nLogin correto, bem vindo!\n\n");
+			system("pause");
+			return 1;
+		} else {
+		    printf("\t\nLogin incorreto, tente novamente!\n\n");
+		    system("pause");
+			}
+	}
+ }
+	
 }
 // Função para registro de usuários
 void registro() {
@@ -107,7 +172,7 @@ void menu() {
         printf("\tQ - Sair\n\n");
         printf("Opção: ");
         
-        scanf(" %s", &opcao);
+        scanf("%s", &opcao);
         
         if (strlen(opcao) != 1) {
         	limpartela();
